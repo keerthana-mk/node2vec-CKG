@@ -43,9 +43,9 @@ class Graph():
 		G = self.G
 		walks = []
 		nodes = list(G.nodes())
-		print 'Walk iteration:'
+		print ('Walk iteration:')
 		for walk_iter in range(num_walks):
-			print str(walk_iter+1), '/', str(num_walks)
+			print (str(walk_iter+1), '/', str(num_walks))
 			random.shuffle(nodes)
 			for node in nodes:
 				walks.append(self.node2vec_walk(walk_length=walk_length, start_node=node))
@@ -82,6 +82,7 @@ class Graph():
 
 		alias_nodes = {}
 		for node in G.nodes():
+			# print(node)
 			unnormalized_probs = [G[node][nbr]['weight'] for nbr in sorted(G.neighbors(node))]
 			norm_const = sum(unnormalized_probs)
 			normalized_probs =  [float(u_prob)/norm_const for u_prob in unnormalized_probs]
@@ -91,16 +92,18 @@ class Graph():
 		triads = {}
 
 		if is_directed:
+			# print("Directed")
 			for edge in G.edges():
 				alias_edges[edge] = self.get_alias_edge(edge[0], edge[1])
 		else:
+			# print("Directed")
 			for edge in G.edges():
 				alias_edges[edge] = self.get_alias_edge(edge[0], edge[1])
 				alias_edges[(edge[1], edge[0])] = self.get_alias_edge(edge[1], edge[0])
 
 		self.alias_nodes = alias_nodes
 		self.alias_edges = alias_edges
-
+		# print("efore return")
 		return
 
 
